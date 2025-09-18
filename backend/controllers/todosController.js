@@ -16,7 +16,7 @@ async function addTodo(req, res) {
     if (!title) return res.status(400).json({ error: "Title is required" })
     const [result] = await pool.query(
       "INSERT INTO todos (title, description) VALUES (?, ?)",
-      [title, description || null]
+      [title, description || ""]
     )
     const [rows] = await pool.query("SELECT * FROM todos WHERE id = ?", [
       result.insertId,

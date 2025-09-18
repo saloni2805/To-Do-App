@@ -27,6 +27,7 @@ export default function App() {
 
   const handleAdd = async (payload) => {
     try {
+      console.log(payload)
       const res = await addTodo(payload)
       setTodos((prev) => [res.data, ...prev])
     } catch (e) {
