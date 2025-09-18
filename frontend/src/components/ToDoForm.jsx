@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
-export default function TodoForm({ onAdd, onUpdate, editing, onCancel }) {
+export default function TodoForm({ onAdd }) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
 
-  useEffect(() => {
-    if (editing) {
-      setTitle(editing.title || "")
-      setDescription(editing.description || "")
-    } else {
-      setTitle("")
-      setDescription("")
-    }
-  }, [editing])
+  // useEffect(() => {
+  //   if (editing) {
+  //     setTitle(editing.title || "")
+  //     setDescription(editing.description || "")
+  //   } else {
+  //     setTitle("")
+  //     setDescription("")
+  //   }
+  // }, [editing])
 
   const submit = (e) => {
     e.preventDefault()
     if (!title.trim()) return alert("Title required")
     const payload = { title: title.trim(), description: description.trim() }
-    if (editing) onUpdate(editing.id, payload)
-    else onAdd(payload)
+    setTitle("")
+    setDescription("")
+    // if (editing) onUpdate(editing.id, payload)
+    onAdd(payload)
   }
 
   return (
@@ -35,9 +37,9 @@ export default function TodoForm({ onAdd, onUpdate, editing, onCancel }) {
           type="submit"
           className="px-4 py-2 bg-blue-600 text-white rounded-lg"
         >
-          {editing ? "Update" : "Add"}
+          Add
         </button>
-        {editing && (
+        {/* {editing && (
           <button
             type="button"
             onClick={onCancel}
@@ -45,7 +47,7 @@ export default function TodoForm({ onAdd, onUpdate, editing, onCancel }) {
           >
             Cancel
           </button>
-        )}
+        )} */}
       </div>
       <textarea
         value={description}

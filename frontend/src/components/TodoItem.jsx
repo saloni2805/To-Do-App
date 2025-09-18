@@ -7,12 +7,17 @@ export default function TodoItem({ todo, onEdit, onDelete, onToggle }) {
 
   const handleSave = () => {
     if (editedTitle.trim() === "") return
-    onEdit(todo.id, { title: editedTitle, description: editedDesc })
+    onEdit(todo.id, {
+      title: editedTitle,
+      description: editedDesc,
+      status: todo.status,
+    })
     setIsEditing(false)
   }
 
   return (
     <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl p-4 border border-gray-200">
+      {/* Editing form */}
       {isEditing ? (
         <div className="flex flex-col gap-2">
           <input
@@ -45,6 +50,7 @@ export default function TodoItem({ todo, onEdit, onDelete, onToggle }) {
       ) : (
         <>
           <div className="flex justify-between items-center">
+            {/* Title */}
             <h3
               className={`text-lg font-semibold ${
                 todo.status === "Completed" ? "line-through text-gray-400" : ""
@@ -52,6 +58,7 @@ export default function TodoItem({ todo, onEdit, onDelete, onToggle }) {
             >
               {todo.title}
             </h3>
+            {/* Edit-Delete */}
             <div className="flex gap-2">
               <button
                 onClick={() => setIsEditing(true)}
@@ -67,6 +74,7 @@ export default function TodoItem({ todo, onEdit, onDelete, onToggle }) {
               </button>
             </div>
           </div>
+          {/* Description */}
           {todo.description && (
             <p
               className={`text-gray-600 ${
@@ -76,6 +84,7 @@ export default function TodoItem({ todo, onEdit, onDelete, onToggle }) {
               {todo.description}
             </p>
           )}
+          {/* Toggle button for completed and pending */}
           <button
             onClick={() => onToggle(todo)}
             className={`mt-2 px-3 py-1 rounded-lg text-white ${

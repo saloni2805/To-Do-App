@@ -6,7 +6,7 @@ import TodoList from "./components/ToDoList"
 export default function App() {
   const [todos, setTodos] = useState([])
   const [loading, setLoading] = useState(true)
-  const [editing, setEditing] = useState(null)
+  // const [editing, setEditing] = useState(null)
 
   const load = async () => {
     setLoading(true)
@@ -37,9 +37,11 @@ export default function App() {
 
   const handleUpdate = async (id, payload) => {
     try {
+      console.log(payload)
       const res = await updateTodo(id, payload)
+      console.log(res.data)
       setTodos((prev) => prev.map((t) => (t.id === id ? res.data : t)))
-      setEditing(null)
+      // setEditing(null)
     } catch (e) {
       console.error(e)
       alert("Update failed")
@@ -74,15 +76,15 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 p-6">
       <div className="max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-6">
-        <h1 className="text-2xl font-bold mb-4">To-Do App</h1>
+        <h1 className="text-2xl font-bold mb-4 text-center">To-Do App</h1>
         <TodoForm
           onAdd={handleAdd}
-          onUpdate={handleUpdate}
-          editing={editing}
-          onCancel={() => setEditing(null)}
+          // onUpdate={handleUpdate}
+          // editing={editing}
+          // onCancel={() => setEditing(null)}
         />
         {loading ? (
-          <p className="mt-4">loading...</p>
+          <p className="mt-4 text-center">loading...</p>
         ) : (
           <TodoList
             todos={todos}
